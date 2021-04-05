@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TimeAgo } from '../posts/TimeAgo'
 import { PostAuthor } from '../posts/PostAuthor'
@@ -27,6 +27,7 @@ let PostExcerpt = ({ postId }) => {
 export const PostsList = ({ filteredPosts }) => {
   const dispatch = useDispatch()
   const posts = useSelector(selectAllPosts)
+  const [post, setPost] = useState(false)
 
   const postStatus = useSelector((state) => state.posts.status)
   const error = useSelector((state) => state.posts.error)
@@ -38,13 +39,13 @@ export const PostsList = ({ filteredPosts }) => {
   }, [postStatus, dispatch])
 
   let content
-
   if (postStatus === 'loading') {
     content = <div className="loader">Loading...</div>
   } else if (postStatus === 'succeeded') {
-    const orderedPosts = !filteredPosts
-      ? posts
-      : filteredPosts.slice().sort((a, b) => b.date.localeCompare(a.date))
+    // const orderedPosts = !filteredPosts ? posts : filteredPosts.reverse()
+    const orderedPosts = post
+      ? [...filteredPosts].sort((a, b) => b.date.localeCompare(a.date))
+      : filteredPosts.reverse()
 
     content = orderedPosts.map((post) => (
       <PostExcerpt key={post.id} postId={post.id} />
@@ -53,9 +54,14 @@ export const PostsList = ({ filteredPosts }) => {
     content = <div>{error}</div>
   }
 
+  const handlePostsView = () => {
+    setPost(!post)
+  }
+
   return (
     <section className="posts-list">
       <h2>Posts</h2>
+      <button onClick={handlePostsView}>See oldest posts first</button>
       {content}
     </section>
   )
