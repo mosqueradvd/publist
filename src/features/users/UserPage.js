@@ -15,7 +15,6 @@ export const UserPage = ({ match }) => {
       <Link to={`/post/${post.id}`}>{post.title}</Link>
     </li>
   ))
-  console.log('postTitles', postTitles)
 
   return (
     <section>

@@ -13,7 +13,7 @@ let PostExcerpt = ({ postId }) => {
       <h3>{post.title}</h3>
       <div>
         <PostAuthor userId={post.user} />
-        <TimeAgo timestamp={post.date} />
+        <TimeAgo timeStamp={post.date} />
       </div>
       <p className="post-content">{post.content.substring(0, 100)}...</p>
 
@@ -42,7 +42,6 @@ export const PostsList = ({ filteredPosts }) => {
   if (postStatus === 'loading') {
     content = <div className="loader">Loading...</div>
   } else if (postStatus === 'succeeded') {
-    // Sort posts in reverse chronological order by datetime string
     const orderedPosts = !filteredPosts
       ? posts
       : filteredPosts.slice().sort((a, b) => b.date.localeCompare(a.date))
