@@ -3,7 +3,16 @@ import { Link } from 'react-router-dom'
 import { TimeAgo } from '../posts/TimeAgo'
 import { PostAuthor } from '../posts/PostAuthor'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectAllPosts, selectPostById, fetchPosts } from '../posts/postsSlice'
+import { selectPostById, fetchPosts } from '../posts/postsSlice'
+import styled from 'styled-components'
+
+const Button = styled.a`
+  background-color: black;
+  color: wheat;
+  padding: 1rem 2rem;
+  margin-left: 1em;
+  border-radius: 4px;
+`
 
 let PostExcerpt = ({ postId }) => {
   const post = useSelector((state) => selectPostById(state, postId))
@@ -26,7 +35,6 @@ let PostExcerpt = ({ postId }) => {
 
 export const PostsList = ({ filteredPosts }) => {
   const dispatch = useDispatch()
-  const posts = useSelector(selectAllPosts)
   const [post, setPost] = useState(false)
 
   const postStatus = useSelector((state) => state.posts.status)
@@ -62,6 +70,10 @@ export const PostsList = ({ filteredPosts }) => {
     <section className="posts-list">
       <h2>Posts</h2>
       <button onClick={handlePostsView}>See oldest posts first</button>
+      <Button>Posts</Button>
+      <Button as={Link} href="/docs">
+        Documentation
+      </Button>
       {content}
     </section>
   )
