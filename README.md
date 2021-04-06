@@ -12,10 +12,14 @@ And finally you can create and edit your posts if you need to.
 For running this project:
 
 - clone this repo https://github.com/mosqueradvd/publist.git
-- move into the cloned folder and run `npm install`
+- move to the cloned folder and run `npm install`
 - after that, run `npm start`
 
-Now you should be able to see the project running
+You should now be able to see the project running.
+
+## Live preview
+
+https://publist.vercel.app/
 
 ## Tech stack
 
