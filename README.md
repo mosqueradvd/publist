@@ -22,3 +22,7 @@ Now you should be able to see the project running
 - React
 - Redux
   & Styled Components
+  
+ ## Info 
+ 
+Project bootstraped with the The official [Redux+JS template for Create React App](https://github.com/reduxjs/cra-template-redux)
