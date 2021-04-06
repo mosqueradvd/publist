@@ -55,13 +55,6 @@ const randomFromArray = (array) => {
   return array[index]
 }
 
-const notificationTemplates = [
-  'poked you',
-  'says hi!',
-  `is glad we're friends`,
-  'sent you a gift',
-]
-
 new Server({
   routes() {
     this.namespace = 'fakeApi'
@@ -113,11 +106,9 @@ new Server({
       // in the DB - just generate a new batch and return them.
       const notifications = [...Array(numNotifications)].map(() => {
         const user = randomFromArray(schema.db.users)
-        const template = randomFromArray(notificationTemplates)
         return {
           id: nanoid(),
           date: faker.date.between(pastDate, now).toISOString(),
-          message: template,
           user: user.id,
           read: false,
           isNew: true,
@@ -174,15 +165,6 @@ new Server({
       },
       content() {
         return article(1)
-      },
-      reactions() {
-        return {
-          thumbsUp: 0,
-          hooray: 0,
-          heart: 0,
-          rocket: 0,
-          eyes: 0,
-        }
       },
       afterCreate(post, server) {
         //server.createList('comment', 3, { post })

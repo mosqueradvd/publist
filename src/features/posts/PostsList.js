@@ -4,21 +4,22 @@ import { TimeAgo } from '../posts/TimeAgo'
 import { PostAuthor } from '../posts/PostAuthor'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectPostById, fetchPosts } from '../posts/postsSlice'
+
+import PostContainer from '../../app/PostContainer'
+import Section from '../../app/Section'
 import styled from 'styled-components'
 
-const Button = styled.a`
-  background-color: black;
-  color: wheat;
-  padding: 1rem 2rem;
-  margin-left: 1em;
-  border-radius: 4px;
+const PostArticle = styled.article`
+  padding: 1.45rem 2rem;
+  border-radius: 7px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 `
 
 let PostExcerpt = ({ postId }) => {
   const post = useSelector((state) => selectPostById(state, postId))
 
   return (
-    <article className="post-excerpt" key={post.id}>
+    <PostArticle key={post.id}>
       <h3>{post.title}</h3>
       <div>
         <PostAuthor userId={post.user} />
@@ -29,7 +30,7 @@ let PostExcerpt = ({ postId }) => {
       <Link to={`/posts/${post.id}`} className="button muted-button">
         View Post
       </Link>
-    </article>
+    </PostArticle>
   )
 }
 
@@ -50,7 +51,6 @@ export const PostsList = ({ filteredPosts }) => {
   if (postStatus === 'loading') {
     content = <div className="loader">Loading...</div>
   } else if (postStatus === 'succeeded') {
-    // const orderedPosts = !filteredPosts ? posts : filteredPosts.reverse()
     const orderedPosts = post
       ? [...filteredPosts].sort((a, b) => b.date.localeCompare(a.date))
       : filteredPosts.reverse()
@@ -67,14 +67,12 @@ export const PostsList = ({ filteredPosts }) => {
   }
 
   return (
-    <section className="posts-list">
-      <h2>Posts</h2>
-      <button onClick={handlePostsView}>See oldest posts first</button>
-      <Button>Posts</Button>
-      <Button as={Link} href="/docs">
-        Documentation
-      </Button>
-      {content}
-    </section>
+    <PostContainer>
+      <Section>
+        <h2>Posts</h2>
+        <button onClick={handlePostsView}>Sort posts</button>
+        {content}
+      </Section>
+    </PostContainer>
   )
 }

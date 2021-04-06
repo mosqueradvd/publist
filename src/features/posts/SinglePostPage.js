@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux'
 import { PostAuthor } from '../posts/PostAuthor'
 import { selectPostById } from '../posts/postsSlice'
 
+import CentralPanel from '../../app/CentralPanel'
+import PostContainer from '../../app/PostContainer'
+
 export const SinglePostPage = ({ match }) => {
   const { postId } = match.params
 
@@ -17,15 +20,17 @@ export const SinglePostPage = ({ match }) => {
   }
 
   return (
-    <section>
-      <article className="post">
-        <h2>{post.title}</h2>
-        <PostAuthor userId={post.user} />
-        <p className="post-content">{post.content}</p>
-        <Link to={`/editPost/${post.id}`} className="button">
-          Edit post
-        </Link>
-      </article>
-    </section>
+    <CentralPanel>
+      <PostContainer>
+        <article className="post">
+          <h2>{post.title}</h2>
+          <PostAuthor userId={post.user} />
+          <p className="post-content">{post.content}</p>
+          <Link to={`/editPost/${post.id}`} className="button">
+            Edit post
+          </Link>
+        </article>
+      </PostContainer>
+    </CentralPanel>
   )
 }

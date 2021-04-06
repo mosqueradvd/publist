@@ -2,7 +2,15 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { PostsList } from '../features/posts/PostsList'
 import { selectAllPosts } from '../features/posts/postsSlice'
+import styled from 'styled-components'
+import Section from './Section'
 
+const SearchInput = styled.input`
+  background-color: white;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
+`
 export const Search = () => {
   const [searchField, setSearchField] = useState('')
 
@@ -19,19 +27,15 @@ export const Search = () => {
   const searhchList = () => <PostsList filteredPosts={filteredPosts} />
 
   return (
-    <section className="garamond">
-      <div className="navy georgia ma0 grow">
-        <h2 className="f2">Search your Fav Post</h2>
-      </div>
-      <div className="pa2">
-        <input
-          className="pa3 bb br3 grow b--none bg-lightest-blue ma3"
+    <Section>
+      <div>
+        <SearchInput
           type="search"
-          placeholder="Search a post"
+          placeholder="Search your favorite post"
           onChange={handleChange}
         />
       </div>
       {searhchList()}
-    </section>
+    </Section>
   )
 }
